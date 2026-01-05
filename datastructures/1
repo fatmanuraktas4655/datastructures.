@@ -1,0 +1,34 @@
+#include <stdio.h>
+#define MAX 10
+
+
+int main() {
+int matrix[MAX][MAX], sparse[100][3];
+int r, c, count = 0;
+
+
+printf("Row and column: ");
+scanf("%d%d", &r, &c);
+
+
+for (int i = 0; i < r; i++){
+    for (int j = 0; j < c; j++){
+        scanf("%d", &matrix[i][j]);
+    }
+}
+
+sparse[0][0] = r;
+sparse[0][1] = c;
+
+
+for (int i = 0; i < r; i++) {
+    for (int j = 0; j < c; j++) {
+        if (matrix[i][j] != 0) {
+            count++;
+            sparse[count][0] = i;
+            sparse[count][1] = j;
+            sparse[count][2] = matrix[i][j];
+        }
+    }
+}
+}

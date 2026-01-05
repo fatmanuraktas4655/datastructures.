@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+typedef struct node {
+    int data;
+    struct node *prev, *next;
+} node;
+
+
+node* head = NULL;
+
+
+void insert(int x) {
+    node* n = (struct node*)malloc(sizeof(struct node));
+    n->data = x;
+    n->prev = NULL;
+    n->next = head;
+    if (head) head->prev = n;
+    head = n;
+}
+void delete(int x) {
+    struct node* t = head;
+
+    while (t && t->data != x)
+        t = t->next;
+
+    if (!t) return;
+
+    if (t->prev) t->prev->next = t->next;
+    else head = t->next;
+
+    if (t->next) t->next->prev = t->prev;
+
+    free(t);
+}
+
+
+void traverse() {
+    struct node* t = head;
+    while (t) {
+        printf("%d ", t->data);
+        t = t->next;
+    }
+    printf("\n");
+}

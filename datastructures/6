@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+typedef struct node {
+    int data;
+    struct node *next;
+}node;
+
+struct node* last = NULL;
+
+/* ----------- EKLEME (Sona) ----------- */
+void insert(int data) {
+    struct node* newNode = (struct node*)malloc(sizeof(struct node));
+    newNode->data = data;
+
+    if (last == NULL) {
+        last = newNode;
+        newNode->next = newNode; // circular
+    } else {
+        newNode->next = last->next;
+        last->next = newNode;
+        last = newNode;
+    }
+}
+
+void deleteNode(int key) {
+    if (last == NULL) {
+        printf("List is empty\n");
+        return;
+    }
+
+    struct node *curr = last->next, *prev = last;
+
+    if (curr == last && curr->data == key) {
+        free(curr);
+        last = NULL;
+        return;
+    }
+}
+void traverse(){
+    if (last == NULL) {
+        printf("List is empty\n");
+        return;
+    }
+
+    struct node* temp = last->next;
+    do {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    } while (temp != last->next);
+
+    printf("\n");
+}
+
+
+
